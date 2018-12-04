@@ -14,8 +14,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CalendarHeadler : NSObject
 
+// 年 / 月 / 日
+@property (nonatomic, strong) NSMutableArray <NSMutableArray<DateModel *>*>* calendarSource;
+
+- (instancetype)initWithCalendarIdentifier:(NSCalendarIdentifier)calendarIdentifier;
+
+- (void)reSetCalendarIdentifier:(NSCalendarIdentifier)calendarIdentifier;
+
 - (NSArray<DateModel *>*)getDateModelsWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 
+- (void)setOneYearCalendarDate;
 
 
 @end
