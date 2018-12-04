@@ -10,11 +10,11 @@
 
 @implementation DateModel
 
-+ (DateModel *)dateWithDay:(NSUInteger)day
-                     month:(NSUInteger)month
-                      year:(NSUInteger)year
-                   weekDay:(NSUInteger)weekDay
-                   section:(NSUInteger)section {
++ (DateModel *)dateWithDay:(NSInteger)day
+                     month:(NSInteger)month
+                      year:(NSInteger)year
+                   weekDay:(NSInteger)weekDay
+                   section:(NSInteger)section {
     DateModel *model = [DateModel new];
     model.day = day;
     model.month = month;

@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "CalendarHeadler.h"
+#import "CalendarHandler.h"
 #import "DateModel.h"
 @interface ViewController ()
 
@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    CalendarHeadler *handler = [[CalendarHeadler alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    CalendarHandler *handler = [[CalendarHandler alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     [handler setOneYearCalendarDate];
     for (NSInteger month = 1; month <= handler.calendarSource.count; month ++) {
         NSArray <DateModel*>*daysArr = handler.calendarSource[month -1];

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DateModel;
 
-@interface CalendarHeadler : NSObject
+@interface CalendarHandler : NSObject
 
 // 年 / 月 / 日
 @property (nonatomic, strong) NSMutableArray <NSMutableArray<DateModel *>*>* calendarSource;

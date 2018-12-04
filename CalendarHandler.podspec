@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CalendarHandler"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "可以方便生成日历数据的工具库 CalendarHandler."
 
   # This description is used to generate tags and improve search results.

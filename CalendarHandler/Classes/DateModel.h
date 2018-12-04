@@ -12,21 +12,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DateModel : NSObject
 
-@property (nonatomic, assign) NSUInteger    day;
-@property (nonatomic, assign) NSUInteger    year;
-@property (nonatomic, assign) NSUInteger    month;
-@property (nonatomic, assign) NSUInteger    weakDay;
+@property (nonatomic, assign) NSInteger    day;
+@property (nonatomic, assign) NSInteger    year;
+@property (nonatomic, assign) NSInteger    month;
+@property (nonatomic, assign) NSInteger    weakDay;
 
 @property (nonatomic, copy  ) NSString      *dateString;
-@property (nonatomic, assign) NSUInteger    section;    // 在日历中当月的第几行
+@property (nonatomic, assign) NSInteger    section;    // 在日历中当月的第几行
 
 
 
-+ (DateModel *)dateWithDay:(NSUInteger )day
-                     month:(NSUInteger)month
-                      year:(NSUInteger)year
-                   weekDay:(NSUInteger)weekDay
-                   section:(NSUInteger)section;
++ (DateModel *)dateWithDay:(NSInteger )day
+                     month:(NSInteger)month
+                      year:(NSInteger)year
+                   weekDay:(NSInteger)weekDay
+                   section:(NSInteger)section;
 
 @end
 
