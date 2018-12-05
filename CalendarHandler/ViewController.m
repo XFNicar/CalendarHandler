@@ -17,12 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    
+    [self printDateForStartDate:@"2018-01-01" endDate:@"2018-11-29"];
+}
+
+- (void)printDateForStartDate:(NSString *)startDateString endDate:(NSString *)endDateString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSDate *startDate = [dateFormatter dateFromString:startDateString];
+    NSDate *endDate = [dateFormatter dateFromString:endDateString];
     CalendarHandler *handler = [[CalendarHandler alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    [handler setOneYearCalendarDate];
-    for (NSInteger month = 1; month <= handler.calendarSource.count; month ++) {
-        NSArray <DateModel*>*daysArr = handler.calendarSource[month -1];
+    NSArray <NSArray<DateModel *>*>* daysArr = [handler loadCalendarDataAtWithStartDate:startDate endDate:endDate];
+    [self printDateWithArr:daysArr];
+}
+
+
+- (void)printDateWithArr:(NSArray<NSArray<DateModel *>*>*)monthArr {
+    
+    for (NSArray <DateModel*>*daysArr in monthArr) {
+        DateModel *firstDate = daysArr[0];
+        printf("%4ld-%02ld\n",firstDate.year,firstDate.month);
         DateModel *firstDay = daysArr.firstObject;
         for (NSInteger i = 0; i < firstDay.weakDay; i ++) printf("\t ");
         for (NSInteger day = 1; day <= daysArr.count; day ++) {
@@ -34,7 +47,7 @@
         }
         printf("\n\n");
     }
+    
 }
-
 
 @end

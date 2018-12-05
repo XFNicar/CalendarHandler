@@ -23,7 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<DateModel *>*)getDateModelsWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 
-- (void)setOneYearCalendarDate;
+// 根据起止日期 加载日历数据
+- (NSArray < NSArray<DateModel *>*>*)loadCalendarDataAtWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
+
+// 根据在同一个月的两个日期加载日期数据
+- (NSArray<DateModel *>*)loadDateModeInTheSameMonthWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate ;
+
+// 从给定起始日期加载该月剩余日期数据
+- (NSArray<DateModel *>*)loadDefaultMonthWithStartDate:(NSDate *)date;
 
 
 @end
