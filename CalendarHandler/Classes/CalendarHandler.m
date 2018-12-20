@@ -13,7 +13,9 @@
 
 @interface CalendarHandler ()
 
-@property (nonatomic , strong) NSCalendar           *calendar;
+@property (nonatomic ,strong) NSCalendar            *calendar;
+@property (nonatomic, copy  ) NSString              *calendarIdentifier;
+@property (nonatomic, strong) NSCalendar            *lunarCalendar;
 
 @end
 
@@ -22,7 +24,12 @@
 
 - (instancetype)initWithCalendarIdentifier:(NSCalendarIdentifier)calendarIdentifier {
     if (self = [super init]) {
-        self.calendar = [[NSCalendar alloc]initWithCalendarIdentifier:calendarIdentifier];
+        if ([calendarIdentifier isEqualToString:NSCalendarIdentifierGregorian]) { // 公历
+            self.calendar = [[NSCalendar alloc]initWithCalendarIdentifier:calendarIdentifier];
+        }
+        if ([calendarIdentifier isEqualToString:NSCalendarIdentifierChinese]) { // 农历
+            self.calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+        }
     }
     return self;
 }
@@ -46,6 +53,7 @@
     NSInteger endDay     = [self.calendar convertDateToDay:endDate];
     NSMutableArray <NSArray <DateModel *>*>* monthArr = [NSMutableArray new];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.calendar = self.calendar;
     [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     if (startYear == endYear) { // 起始年和最后一年是同一年
         for (NSInteger month = startMonth; month <= endMonth; month ++) {
@@ -162,6 +170,13 @@
         _calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     }
     return _calendar;
+}
+
+- (NSCalendar *)lunarCalendar {
+    if (_lunarCalendar == nil) {
+        _lunarCalendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+    }
+    return _lunarCalendar;
 }
 
 - (NSMutableArray<NSMutableArray<DateModel *> *> *)calendarSource {

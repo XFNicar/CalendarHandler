@@ -57,6 +57,7 @@
 //根据date获取偏移指定天数的date
 - (NSDate *)getDateFrom:(NSDate *)date offsetDays:(NSInteger)offsetDays {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.calendar = self;
     [formatter setDateFormat:@"yyyy-MM"];
 
     NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
@@ -68,6 +69,7 @@
 //根据date获取偏移指定月数的date
 - (NSDate *)getDateFrom:(NSDate *)date offsetMonths:(NSInteger)offsetMonths {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.calendar = self;
     [formatter setDateFormat:@"yyyy-MM"];
     
     NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
@@ -79,6 +81,7 @@
 //根据date获取偏移指定年数的date
 - (NSDate *)getDateFrom:(NSDate *)date offsetYears:(NSInteger)offsetYears {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.calendar = self;
     [formatter setDateFormat:@"yyyy"];
     
     NSDateComponents *lastMonthComps = [[NSDateComponents alloc] init];
