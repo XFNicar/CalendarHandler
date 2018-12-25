@@ -23,7 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 //- (NSArray<DateModel *>*)getDateModelsWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 
-// 根据起止日期 加载日历数据
+
+/**
+ 根据起止日期 加载公历日历数据
+
+ @param startDate 起始日期
+ @param endDate 终止日期
+ @return 按月分组的公历数据
+ */
 - (NSArray < NSArray<DateModel *>*>*)loadCalendarDataAtWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 
 // 根据在同一个月的两个日期加载日期数据
