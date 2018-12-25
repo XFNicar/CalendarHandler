@@ -33,10 +33,26 @@ unsigned int LunarCalendarTable[199] = {
 };
 
 // 阳历平年月份天数
-//int MonthAdd[12] = {0,31,59,90,120,151,181,212,243,273,304,334};
 int solarNonleapYearMonth[13]   = {0,31,28,31,30,31,30,31,31,30,31,30,31};
-int solarLeapYearMonth[13]      = {0,31,29,31,30,31,30,31,31,30,31,30,31};
 
+
+@interface LunarCalendarHandler () {
+    NSInteger _solarYear;
+    NSInteger _solarMonth;
+    NSInteger _solarDay;
+    BOOL      _leapYear;
+    
+    NSInteger _yearData;
+    NSInteger _leapMonth;
+    NSInteger _totalMonth;
+    NSInteger _lunarMonth;
+    
+    NSInteger _solarDayFlag;
+}
+
+
+
+@end
 
 
 @implementation LunarCalendarHandler
@@ -61,51 +77,108 @@ int solarLeapYearMonth[13]      = {0,31,29,31,30,31,30,31,31,30,31,30,31};
  @return 农历数据
  */
 - (NSArray <LunarDateModel *>*)getLunarCalendarDataAtYearData:(NSInteger)year {
-    NSInteger yearData = LunarCalendarTable[year - 1901];
+    _yearData = LunarCalendarTable[year - 1901];
     NSMutableArray <LunarDateModel *>* lunarCalendarData = [NSMutableArray new];
-    NSInteger leapMonth = [self getLunarCalendarLeapMonthWithYearData:yearData];
-    NSInteger totalMonth = leapMonth == 0 ? 12 : 13;
-    NSInteger lunarMonth = 1;
-    NSInteger solarMonth = [self getLunarCalendarTheChineseNewYearMonthWithYearData:yearData];
-    NSInteger solarDay   = [self getLunarCalendarTheChineseNewYearDayWithYearData:yearData];
-    for (NSInteger index = 1; index <= totalMonth; index ++) {
-        NSInteger monthDays = [self getLunarCalendarNomalMonthDaysWithYearData:yearData month:index];
-        if (lunarMonth == leapMonth) {
-            for (NSInteger day = 1; day <= monthDays ; day ++) {
+    _leapMonth = [self getLunarCalendarLeapMonthWithYearData:_yearData];
+    _totalMonth = _leapMonth == 0 ? 12 : 13;
+    _lunarMonth = 1;
+    _solarYear  = year;
+    _solarMonth = [self getLunarCalendarTheChineseNewYearMonthWithYearData:_yearData];
+    _solarDay   = [self getLunarCalendarTheChineseNewYearDayWithYearData:_yearData];
+    _leapYear   = [self solarYearIsLeapYear:year];
+    
+    for (NSInteger index = 1; index <= _totalMonth; index ++) {
+        NSInteger lunarMonthDays = [self getLunarCalendarNomalMonthDaysWithYearData:_yearData month:index];
+        if (index == _leapMonth) {
+            for (NSInteger lunarDay = 1; lunarDay <= lunarMonthDays ; lunarDay ++ ) {
                 LunarDateModel * lunarDate = [LunarDateModel new];
-                
-                lunarDate.lunarDate = [self getLunarDay:day month:lunarMonth year:year isLeapMonth:YES];
+                lunarDate.solarDate = [self getSolarDate];
+                lunarDate.lunarDate = [self getLunarDay:lunarDay month:_lunarMonth year:year isLeapMonth:NO];
                 [lunarCalendarData addObject:lunarDate];
             }
+        } else if ((index == _leapMonth + 1) && (_leapMonth > 0)) {
+            for (NSInteger lunarDay = 1; lunarDay <= lunarMonthDays ; lunarDay ++ ) {
+                LunarDateModel * lunarDate = [LunarDateModel new];
+                lunarDate.solarDate = [self getSolarDate];
+                lunarDate.lunarDate = [self getLunarDay:lunarDay month:_lunarMonth year:year isLeapMonth:YES];
+                [lunarCalendarData addObject:lunarDate];
+            }
+            _lunarMonth ++;
         } else {
-            for (NSInteger day = 1; day <= monthDays ; day ++) {
+            for (NSInteger lunarDay = 1; lunarDay <= lunarMonthDays ; lunarDay ++ ) {
                 LunarDateModel * lunarDate = [LunarDateModel new];
-                lunarDate.lunarDate = [self getLunarDay:day month:lunarMonth year:year isLeapMonth:NO];
+                lunarDate.solarDate = [self getSolarDate];
+                lunarDate.lunarDate = [self getLunarDay:lunarDay month:_lunarMonth year:year isLeapMonth:NO];
                 [lunarCalendarData addObject:lunarDate];
             }
-            lunarMonth ++;
+            _lunarMonth ++;
         }
     }
     return lunarCalendarData;
 }
 
-- (Solar *)getSolarDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year {
-    
-    
-    return nil;
+- (Solar *)getSolarDate {
+    Solar *solar = [Solar new];
+    solar.day   = _solarDay;
+    solar.year  = _solarYear;
+    solar.month = _solarMonth;
+    if (_solarMonth == 2 && _leapYear) { // 二月份特殊处理
+        if (_solarDay == 29) { // 判断是否跨月份
+            _solarDay = 1;
+            _solarMonth ++;
+        } else {
+            _solarDay ++;
+        }
+    } else {
+        if (_solarDay == solarNonleapYearMonth[_solarMonth]) {    // 判断是否跨月份
+            _solarDay = 1;
+            if (_solarMonth == 12) { // 判断是否跨年
+                _solarMonth = 1;
+                _solarYear ++;
+            } else {
+                _solarMonth ++;
+            }
+        } else {
+            _solarDay ++;
+        }
+    }
+    _solarDayFlag ++;
+    return solar;
 }
 
+
+/**
+ 判断该公历年是否为闰年
+
+ @param solarYear 公历年份
+ @return 是否闰年
+ */
+- (BOOL)solarYearIsLeapYear:(NSInteger)solarYear {
+    if (solarYear % 4) {            // 不能被4整除，是平年
+        return NO;
+    } else if (solarYear % 100) {   // 不能被100 整除，是润年
+        return YES;
+    } else if (solarYear % 400) {   // 不能被400 整除，是平年
+        return NO;
+    } else {                        // 能被400 整除，是闰年
+        return YES;
+    }
+}
+
+/**
+ 生成农历数据模型
+
+ @param day 农历日
+ @param month 农历月份
+ @param year 农历年份
+ @param isLeapMonth 是否闰月
+ @return 农历数据模型
+ */
 - (Lunar *)getLunarDay:(NSInteger)day month:(NSInteger)month year:(NSInteger)year isLeapMonth:(BOOL)isLeapMonth {
     Lunar *dayModel = [Lunar new];
     dayModel.day    = day;
     dayModel.month  = month;
     dayModel.year   = year;
-//    dayModel.dayStr     = [NSString stringWithUTF8String:ChDay[day]];
-//    if (isLeapMonth) {
-//        dayModel.monthStr   = [NSString stringWithFormat:@"润%@",[NSString stringWithUTF8String: ChMonth[month]]];
-//    } else {
-//        dayModel.monthStr   = [NSString  stringWithUTF8String:ChMonth[month]];
-//    }
     dayModel.isLeap = isLeapMonth;
     return dayModel;
 }
@@ -117,7 +190,7 @@ int solarLeapYearMonth[13]      = {0,31,29,31,30,31,30,31,31,30,31,30,31};
 
 // 获取春节所在公历年份的月份
 - (NSInteger)getLunarCalendarTheChineseNewYearMonthWithYearData:(NSInteger)yearData {
-    return yearData & 0x30;
+    return ((yearData & 0x30)>>4) + 1;
 }
 
 // 获取农历闰月月份 // 如无 则返回0

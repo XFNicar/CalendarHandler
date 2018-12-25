@@ -58,10 +58,21 @@ const char *Number_CN[] = {"零","一","二","三","四","五","六","七","八"
     return [NSString stringWithFormat:@"%@",[NSString stringWithUTF8String:ShengXiao[((self.lunarDate.year - 1900)) % 12]]];
 }
 
+- (NSString *)solarDay {
+    return [NSString stringWithFormat:@"%02ld",self.solarDate.day];
+}
 
+- (NSString *)solarMonth {
+    return [NSString stringWithFormat:@"%02ld",self.solarDate.month];
+}
 
+- (NSString *)solarYear {
+    return [NSString stringWithFormat:@"%04ld",self.solarDate.year];
+}
 
-
+- (NSString *)solarDateStr {
+    return [NSString stringWithFormat:@"%@-%@-%@",self.solarYear,self.solarMonth,self.solarDay];
+}
 
 - (Lunar *)lunarDate {
     if (_lunarDate == nil) {
