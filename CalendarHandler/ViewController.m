@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "CalendarHandler.h"
 #import "DateModel.h"
+#import "LunarCalendarHandler.h"
 @interface ViewController ()
 
 @end
@@ -17,7 +18,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self printDateForStartDate:@"2016-11-01" endDate:@"2018-03-01"];
+//    [self printDateForStartDate:@"2016-11-01" endDate:@"2018-03-01"];
+    LunarCalendarHandler *lunarCalendarHandler = [LunarCalendarHandler new];
+    NSArray <LunarDateModel *>* lunarCalendar = [lunarCalendarHandler getLunarCalendarDataAtYear:1901];
+    [self printLunarCalendar:lunarCalendar];
+}
+
+- (void)printLunarCalendar:(NSArray<LunarDateModel *>*)lunarCalendar {
+    for (LunarDateModel *date in lunarCalendar) {
+        if (date.lunarDate.day == 1) {
+            if (date.lunarDate.month == 1) {
+                printf("\n%s %s 年\n",[date.lunarYear UTF8String],[date.ShengXiao UTF8String]);
+            }
+            printf("\n");
+            printf("\n%s\n",[date.lunarMonth UTF8String]);
+        }
+        printf("\t%s",[date.lunarDay UTF8String]);
+
+    }
 }
 
 - (void)printDateForStartDate:(NSString *)startDateString endDate:(NSString *)endDateString {

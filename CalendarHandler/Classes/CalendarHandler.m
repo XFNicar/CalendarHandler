@@ -27,9 +27,9 @@
         if ([calendarIdentifier isEqualToString:NSCalendarIdentifierGregorian]) { // 公历
             self.calendar = [[NSCalendar alloc]initWithCalendarIdentifier:calendarIdentifier];
         }
-        if ([calendarIdentifier isEqualToString:NSCalendarIdentifierChinese]) { // 农历
-            self.calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierChinese];
-        }
+//        if ([calendarIdentifier isEqualToString:NSCalendarIdentifierChinese]) { // 农历
+//            self.calendar = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierChinese];
+//        }
     }
     return self;
 }

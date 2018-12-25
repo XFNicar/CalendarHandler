@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reSetCalendarIdentifier:(NSCalendarIdentifier)calendarIdentifier;
 
-- (NSArray<DateModel *>*)getDateModelsWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
+//- (NSArray<DateModel *>*)getDateModelsWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 
 // 根据起止日期 加载日历数据
 - (NSArray < NSArray<DateModel *>*>*)loadCalendarDataAtWithStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
