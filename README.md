@@ -1,9 +1,22 @@
-# CalendarHandler
+<!--<p align="center">
+<img src="https://github.com/XFNicar/CalendarHandler/Assets/logo.png" width="500">
+</p>-->
+<H4 align="center">
+该工具库可以方便的生成日历数据，目前暂时提生成供阳历和农历数据的API，后期相关的接口可能会稍作调整，尽可能保证原有接口功能不发生改变。
+</H4>
+
+<p align="center">
+<a href="https://developer.apple.com/swift"><img alt="Swift4" src="https://img.shields.io/badge/language-Objective C-green.svg"/></a>
+<a href="https://developer.apple.com/"><img alt="Platform" src="https://img.shields.io/badge/platform-iOS%20%7C%20OSX%20%7C%20tvOS%20%7C%20watchOS-green.svg"/></a>
+<a href="https://github.com/XFNicar/CalendarHandler/blob/master/LICENSE"><img alt="Lincense" src="http://img.shields.io/badge/license-MIT-green.svg"/></a>
+
+</br>
+<!--<a href="https://github.com/XFNicar/CalendarHandler/releases/latest"><img alt="Release" src="https://img.shields.io/badge/release-0.0.5-orange.svg"/></a>-->
+<a href="https://cocoapods.org/pods/CalendarHandler"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/CalendarHandler.svg"/></a>
+</p>
 
 
-## 项目简介
-
-* 该工具库可以方便的生成日历数据，目前暂时提生成供阳历和农历数据的API，后期相关的接口可能会稍作调整，尽可能保证原有接口功能不发生改变。
+---
 
 
 ## 使用说明
