@@ -136,7 +136,7 @@
     NSInteger year  = [self.calendar convertDateToYear:startDate];
     NSInteger day   = [self.calendar convertDateToDay:startDate];
     NSInteger month = [self.calendar convertDateToMonth:startDate];
-    NSInteger firstWeekDay  = [self.calendar convertDateToFirstWeekDay:startDate];
+    NSInteger firstWeekDay  = [self.calendar convertDateToWeekDay:startDate];
     NSInteger endDay     = [self.calendar convertDateToDay:endDate];
     NSMutableArray <DateModel *>*dateArr = [NSMutableArray new];
     for (NSInteger weekDay = firstWeekDay; day <= endDay; day ++ ,weekDay ++) {
@@ -152,7 +152,7 @@
     NSInteger year  = [self.calendar convertDateToYear:date];
     NSInteger day   = [self.calendar convertDateToDay:date];
     NSInteger month = [self.calendar convertDateToMonth:date];
-    NSInteger firstWeekDay  = [self.calendar convertDateToFirstWeekDay:date];
+    NSInteger firstWeekDay  = [self.calendar convertDateToWeekDay:date];
     NSInteger totalDays     = [self.calendar convertDateToMonthTotalDays:date];
     NSMutableArray <DateModel *>*dateArr = [NSMutableArray new];
     

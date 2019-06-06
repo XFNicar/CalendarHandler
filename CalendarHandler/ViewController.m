@@ -19,9 +19,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self printDateForStartDate:@"2016-11-01" endDate:@"2018-03-01"];
-    LunarCalendarHandler *lunarCalendarHandler = [LunarCalendarHandler new];
-    NSArray <LunarDateModel *>* lunarCalendar = [lunarCalendarHandler getLunarCalendarDataAtYear:1903];
-    [self printLunarCalendar:lunarCalendar];
+//    LunarCalendarHandler *lunarCalendarHandler = [LunarCalendarHandler new];
+//    NSArray <LunarDateModel *>* lunarCalendar = [lunarCalendarHandler getLunarCalendarDataAtYear:1903];
+//    [self printLunarCalendar:lunarCalendar];
+    [self printDateForStartDate:@"2018-01-01" endDate:@"2020-01-01"];
 //    [self printSolarCalendar:lunarCalendar];
 }
 
@@ -49,7 +50,7 @@
             printf("\n%s\n",[date.lunarMonth UTF8String]);
         }
         printf("\t%s %s",[date.lunarDay UTF8String],[date.solarDay UTF8String]);
-
+        
     }
 }
 
@@ -80,7 +81,10 @@
 //        }
         
         for (DateModel *dateModel in daysArr) {
-            printf("\t %ld",dateModel.day);
+            printf("\t %ld-%ld",dateModel.day,dateModel.weakDay);
+            if (dateModel.weakDay == 6) {
+                printf("\n");
+            }
         }
         
         printf("\n\n");
